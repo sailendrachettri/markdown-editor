@@ -3,6 +3,7 @@ import { marked } from "marked";
 import DOMPurify from 'dompurify';
 import { useRef } from 'react';
 import generatePDF from 'react-to-pdf';
+import getReadingTime from "../../utility/functions/GetReadingTime";
 
 const Editor = () => {
 	const [wordsCount, setWordsCount] = useState(0);
@@ -131,7 +132,7 @@ const Editor = () => {
 						dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
 					/>
 					<div className="text-right text-sm text-gray-500 p-1 select-none">
-					Words: {wordsCount} Characters : {charactersCount}
+					Reading Time: {getReadingTime(wordsCount || '')} <span className="px-1">•</span> Words: {wordsCount} <span className="px-1">•</span> Characters : {charactersCount}
 				</div>
 
 				</div>

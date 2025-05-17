@@ -1,51 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { marked } from "marked";
 import DOMPurify from 'dompurify';
 
 const Editor = () => {
-    
-const renderer = new marked.Renderer();
+    const [wordsCount, setWordsCount] = useState(0);
+  const [charactersCount, setCharactersCount] = useState(0);  
+  const [markdown, setMarkdown] = useState(``);
 
-renderer.image = function (href, title, text) {
-  return `<img src="${href}" alt="${text}" title="${title || ''}" class="max-w-[100px] max-h-[100px] object-contain mx-auto block" />`;
-};
+  // Calculate sanitized HTML once per markdown change
+  const [sanitizedHtml, setSanitizedHtml] = useState("");
 
-// Then use it like:
-marked.setOptions({ renderer });
+  useEffect(() => {
+    const rawHtml = marked(markdown);
+    const cleanHtml = DOMPurify.sanitize(rawHtml);
 
+    setSanitizedHtml(cleanHtml);
 
-    const [markdown, setMarkdown] = useState(`
- 
-`);
+    // Count words in clean HTML text content
+    const textOnly = cleanHtml.replace(/<[^>]*>?/gm, ""); // strip HTML tags
+    const words = textOnly.trim().split(/\s+/).filter(Boolean).length;
+    setWordsCount(words);
 
-   const getSanitizedHtml = (markdownText) => {
-    const rawHtml = marked(markdownText); // Convert Markdown to HTML
-    const cleanHtml = DOMPurify.sanitize(rawHtml); // Sanitize the HTML
-    return cleanHtml;
-};
+    setCharactersCount(textOnly.length);
+  }, [markdown]);
 
-const handleTab = (e) => {
-  if (e.key === 'Tab') {
-    e.preventDefault();
+  const lineCount = markdown.split('\n').length;
 
-    const textarea = e.target;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
+  const handleTab = (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
 
-    // Insert 4 spaces at cursor position
-    const newValue = 
-      markdown.substring(0, start) + 
-      '    ' + 
-      markdown.substring(end);
+      const textarea = e.target;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
 
-    setMarkdown(newValue);
+      const newValue = 
+        markdown.substring(0, start) + 
+        '    ' + 
+        markdown.substring(end);
 
-    // Move cursor after inserted spaces
-    setTimeout(() => {
-      textarea.selectionStart = textarea.selectionEnd = start + 4;
-    }, 0);
-  }
-};
+      setMarkdown(newValue);
+
+      setTimeout(() => {
+        textarea.selectionStart = textarea.selectionEnd = start + 4;
+      }, 0);
+    }
+  };
 
 
 
@@ -60,14 +60,18 @@ const handleTab = (e) => {
                     onChange={(e) => setMarkdown(e.target.value)}
                     placeholder="Type Markdown here..."
                 />
+                {/* Line count display */}
+              <div className="text-right text-sm text-gray-500 p-1 pe-3 select-none">
+                Lines: {lineCount}
+              </div>
             </div>
 
             {/* Preview Output */}
             <div className="
             hide-scrollbar
-         text-slate-800 border border-white flex flex-col
+         text-slate-800  flex flex-col
             overflow-auto
-            w-full h-full p-4 
+            w-full h-full
             [&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
             [&_h1]:font-bold [&_h2]:font-semibold
             [&_h1]:my-4 [&_h2]:my-3 [&_h3]:my-2 [&_h4]:my-2
@@ -95,15 +99,15 @@ const handleTab = (e) => {
             [&_code]:bg-gray-200 [&_code]:text-red-600 [&_code]:px-1 [&_code]:py-[2px] [&_code]:rounded-sm
             [&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:rounded-none
             [&_img]:max-w-full [&_img]:rounded-md [&_img]:shadow-md [&_img]:my-4
-
-            
-
   
             ">
                 <div
-                    className=""
-                    dangerouslySetInnerHTML={{ __html: getSanitizedHtml(markdown) }}
+                    className="h-full w-full overflow-hidden flex flex-col"
+                    dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
                 />
+                <div className="text-right text-sm text-gray-500 p-1 select-none">
+                Words: {wordsCount} Characters : {charactersCount}
+              </div>
 
             </div>
         </div>

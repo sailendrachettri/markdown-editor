@@ -4,3 +4,15 @@
 @theme {
  --color-primary: oklch(62.3% 0.214 259.815);
 } 
+
+
+/* For Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

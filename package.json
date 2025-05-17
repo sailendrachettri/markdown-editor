@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.7",
+    "dompurify": "^3.2.5",
     "highlight.js": "^11.11.1",
     "marked": "^15.0.11",
     "react": "^19.1.0",

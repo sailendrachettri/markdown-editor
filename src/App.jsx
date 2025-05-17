@@ -1,4 +1,4 @@
-import React from 'react'
+import './App.css';
 import Editor from './components/editor/Editor';
 import 'highlight.js/styles/github-dark.css';
 

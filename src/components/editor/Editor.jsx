@@ -307,7 +307,15 @@ print(greet("Markdown"))
 					<div 
 						id="content-id"
 						className={`hide-scrollbar border-t border-r flex flex-col ${containerHeight} w-full overflow-scroll
-								[&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
+								[&_h1]:text-xl [&_h1]:sm:text-xl [&_h1]:md:text-2xl [&_h1]:lg:text-4xl
+								[&_h1]:text-xl [&_h1]:sm:text-xl [&_h1]:md:text-2xl [&_h1]:lg:text-4xl
+								[&_h2]:text-lg [&_h2]:sm:text-lg [&_h2]:md:text-xl [&_h2]:lg:text-2xl
+								[&_h3]:text-base [&_h3]:sm:text-base [&_h3]:md:text-lg [&_h3]:lg:text-xl
+								[&_h4]:text-sm [&_h4]:sm:text-sm [&_h4]:md:text-base [&_h4]:lg:text-lg
+								[&_h5]:text-xs [&_h5]:md:text-sm [&_h5]:lg:text-base
+								[&_h6]:text-[0.65rem] [&_h6]:md:text-xs [&_h6]:lg:text-sm
+
+								 [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
 								[&_h1]:font-bold [&_h2]:font-semibold
 								[&_h1]:my-4 [&_h2]:my-3 [&_h3]:my-2 [&_h4]:my-2
 								[&_h1]:mb-4 [&_h1]:pb-2 [&_h1]:border-b 
@@ -315,7 +323,8 @@ print(greet("Markdown"))
 								[&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
 								[&_pre]:my-4 [&_img]:h-full [&_img]:w-full [&_img]:mx-auto [&_img]:block
 								[&_img]:rounded-md [&_img]:shadow-md [&_img]:my-0
-								[&_blockquote]:my-4 [&_blockquote]:border-l-4 [&_blockquote]:pl-4
+								[&_p]:text-justify [&_p]:lg:text-start
+								[&_blockquote]:my-4 [&_blockquote]:text-justify [&_blockquote]:pe-4 [&_blockquote]:border-l-4 [&_blockquote]:pl-4
 								[&_blockquote]:italic [&_blockquote]:bg-slate-50 [&_blockquote]:text-gray-600 [&_blockquote]:border-gray-300
 								[&_a]:font-semibold [&_a]:transition [&_a]:duration-150 [&_a]:underline-offset-4
 								[&_a]:text-blue-600 [&_a]:no-underline [&_a:hover]:text-blue-800 [&_a:hover]:decoration-wavy [&_a:hover]:underline

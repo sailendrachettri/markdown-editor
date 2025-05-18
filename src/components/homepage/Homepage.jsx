@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Editor from '../editor/Editor';
 import Intro from '../intro/Intro';
 import Navbar from '../navbar/Navbar';
+import Footer from '../footer/Footer';
 
 const Homepage = () => {
     const [showIntro, setShowIntro] = useState(true);
@@ -30,11 +31,13 @@ const Homepage = () => {
                     <Intro />
                 </div>
             ) : (
-                <div className={`${themeMode==='dark' ? 'bg-dark text-white' : 'bg-light text-slate-800 '}`}>
+                <div className={`${themeMode==='dark' ? 'bg-dark text-white' : 'bg-white text-slate-800 '}`}>
                     <Navbar setThemeMode={setThemeMode} themeMode={themeMode} />
                     <Editor themeMode={themeMode} />
+                    <Footer  themeMode={themeMode}/>
                 </div>
             )}
+            
         </div>
     );
 };

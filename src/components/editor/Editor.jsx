@@ -5,35 +5,23 @@ import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 import getReadingTime from "../../utility/functions/GetReadingTime";
 
 const options = {
-   // default is `save`
+   
    method: 'open',
-   // default is Resolution.MEDIUM = 3, which should be enough, higher values
-   // increases the image quality but also the size of the PDF, so be careful
-   // using values higher than 10 when having multiple pages generated, it
-   // might cause the page to crash or hang.
+   
    resolution: Resolution.HIGH,
    page: {
-      // margin is in MM, default is Margin.NONE = 0
       margin: Margin.SMALL,
-      // default is 'A4'
       format: 'letter',
-      // default is 'portrait'
       orientation: 'portrait',
    },
    canvas: {
-      // default is 'image/jpeg' for better size performance
       mimeType: 'image/jpeg',
       qualityRatio: 1
    },
-   // Customize any value passed to the jsPDF instance and html2canvas
-   // function. You probably will not need this and things can break, 
-   // so use with caution.
    overrides: {
-      // see https://artskydj.github.io/jsPDF/docs/jsPDF.html for more options
       pdf: {
          compress: true
       },
-      // see https://html2canvas.hertzen.com/configuration for more options
       canvas: {
          useCORS: true
       }
@@ -42,7 +30,6 @@ const options = {
 
 const containerHeight = "h-[86.3vh]";
 
-// you can use a function to return the target element besides using React refs
 const getTargetElement = () => document.getElementById('content-id');
 
 const Editor = ({themeMode}) => {
@@ -50,7 +37,7 @@ const Editor = ({themeMode}) => {
   	const [charactersCount, setCharactersCount] = useState(0);  
  	const [markdown, setMarkdown] = useState(`# 🌟 Online Markdown Editor
 
-Welcome to **_your very own_** Markdown editor. This sample document will help you test all major Markdown features!
+Welcome to **_your very own_** Markdown editor. This sample document will help you test all major Markdown features. Start writing your own Markdown below, and see the preview on the right.
 
 <!-- You can write comment like this for your reference -->
 
@@ -337,7 +324,6 @@ print(greet("Markdown"))
 								[&_table]:w-full [&_table]:border [&_table]:border-collapse [&_table]:table-auto
 								[&_th]:border [&_th]:border-gray-300 [&_th]:px-4 [&_th]:py-2 [&_th]:font-semibold  [&_th]:text-left
 								[&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2 [&_td]:text-left
-								[&_tr:nth-child(even)]:bg-gray-50/50 [&_th]:bg-gray-200
 								[&_input[type="checkbox"]]:accent-blue-600
 								[&_input[type="checkbox"]]:h-4
 								[&_input[type="checkbox"]]:w-4

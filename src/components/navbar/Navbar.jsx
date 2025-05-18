@@ -1,4 +1,4 @@
-import ToggleButton from '../../utility/functions/buttons/day-night/DayNightButton';
+import ToggleButton from '../../utility/buttons/day-night/DayNightButton';
 import { IoLogoGithub } from "react-icons/io5";
 const Navbar = ({themeMode, setThemeMode}) => {
 

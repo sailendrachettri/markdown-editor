@@ -1,11 +1,11 @@
-import React from 'react'
-import Editor from './components/editor/Editor';
+import './App.css';
 import 'highlight.js/styles/github-dark.css';
+import Homepage from './components/homepage/Homepage';
 
 const App = () => {
   return (
     <>
-     <Editor /> 
+     <Homepage /> 
     </>
   )
 }

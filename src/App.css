@@ -1,3 +1,35 @@
-a{
-  color: blue;
-}
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-width: smooth;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    font-family: "Lato", sans-serif;
+  }
+
+
+/* For Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* For IE, Edge */
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  /* Homepage css */
+  .intro-wrapper {
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      transform: translateY(0);
+      opacity: 1;
+  }
+  
+  .intro-wrapper.slide-up {
+      transform: translateY(-100%);
+      opacity: 0;
+  }

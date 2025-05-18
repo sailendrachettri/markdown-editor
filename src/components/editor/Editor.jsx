@@ -217,15 +217,29 @@ print(greet("Markdown"))
   };
 
 const handleGeneratePDF = async () => {
-	try {
-		setGenerateStatus(true);
-		await generatePDF(getTargetElement, options);
-		setGenerateStatus(false);
+  const element = getTargetElement();
 
-	} catch (error) {
-		console.error('PDF generation failed:', error);
-		setGenerateStatus(false);
-	} 
+  // Temporarily expand the div to show all content
+  const originalStyle = {
+    height: element.style.height,
+    overflow: element.style.overflow,
+  };
+  element.style.height = 'auto';
+  element.style.overflow = 'visible';
+
+  try {
+    setGenerateStatus(true);
+    await generatePDF(getTargetElement, options);
+	setGenerateStatus(false);
+
+  } catch (error) {
+    console.error('PDF generation failed:', error);
+	setGenerateStatus(false);
+  } finally {
+    // Restore original styles
+    element.style.height = originalStyle.height;
+    element.style.overflow = originalStyle.overflow;
+  }
 };
 
 
@@ -285,7 +299,7 @@ const handleGeneratePDF = async () => {
 				className="
 				hide-scrollbar  border-t border-r border-slate-400
 				text-slate-800  flex flex-col bg-slate-50/20
-				h-[90vh] w-full
+				h-[90vh] w-full overflow-scroll
 				[&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
 				[&_h1]:font-bold [&_h2]:font-semibold
 				[&_h1]:my-4 [&_h2]:my-3 [&_h3]:my-2 [&_h4]:my-2

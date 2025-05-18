@@ -248,13 +248,13 @@ const handleGeneratePDF = async () => {
     return (
         <>
 		<div>
-			<div className={`grid grid-cols-1 ${fullScreenMode ? 'md:grid-cols-1' : 'md:grid-cols-2'} min-h-[100vh] px-4 pt-4 pb-0`}>
+			<div className={`grid grid-cols-1 ${fullScreenMode ? 'md:grid-cols-1' : 'md:grid-cols-2'} gap-y-10 md:gap-0 min-h-[100vh] px-4 pt-4 pb-0`}>
             {/* Markdown Input */}
             <div className="w-full">
 				<div className="flex justify-between border-t border-l bg-slate-100 border-r border-slate-400 px-5 py-3">
 					<h2 className=" text-slate-600 uppercase tracking-[1px]">Markdown</h2>
 					<div
-					className="text-slate-500"
+					className="text-slate-500 md:block hidden"
 						onClick={()=>{setFullScreenMode(prev => !prev)}}
 					>
 						{

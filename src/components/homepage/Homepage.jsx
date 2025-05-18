@@ -7,7 +7,7 @@ import Footer from '../footer/Footer';
 const Homepage = () => {
     const [showIntro, setShowIntro] = useState(true);
     const [slideUp, setSlideUp] = useState(false);
-    const [themeMode, setThemeMode] = useState('dark');
+    const [themeMode, setThemeMode] = useState('light');
 
     useEffect(() => {
         const timer1 = setTimeout(() => {

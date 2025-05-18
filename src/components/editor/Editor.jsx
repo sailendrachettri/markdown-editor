@@ -44,7 +44,7 @@ const options = {
 // you can use a function to return the target element besides using React refs
 const getTargetElement = () => document.getElementById('content-id');
 
-const Editor = () => {
+const Editor = ({themeMode, setThemeMode}) => {
 	const [wordsCount, setWordsCount] = useState(0);
   	const [charactersCount, setCharactersCount] = useState(0);  
  	const [markdown, setMarkdown] = useState(`# 🌟 Online Markdown Editor
@@ -172,7 +172,7 @@ print(greet("Markdown"))
 ## 😀 Emoji Test
 
 ✅ 👍 💡 🚀 ✨ 😍 🔥 🎉 🛠️ 🎯 📝
-`);
+	`);
 
 	const [generateStatus, setGenerateStatus] = useState(false);
 	const [fullScreenMode, setFullScreenMode] = useState(false);
@@ -217,31 +217,31 @@ print(greet("Markdown"))
     }
   };
 
-const handleGeneratePDF = async () => {
-  const element = getTargetElement();
+	const handleGeneratePDF = async () => {
+	const element = getTargetElement();
 
-  // Temporarily expand the div to show all content
-  const originalStyle = {
-    height: element.style.height,
-    overflow: element.style.overflow,
-  };
-  element.style.height = 'auto';
-  element.style.overflow = 'visible';
+	// Temporarily expand the div to show all content
+	const originalStyle = {
+		height: element.style.height,
+		overflow: element.style.overflow,
+	};
+	element.style.height = 'auto';
+	element.style.overflow = 'visible';
 
-  try {
-    setGenerateStatus(true);
-    await generatePDF(getTargetElement, options);
-	setGenerateStatus(false);
+	try {
+		setGenerateStatus(true);
+		await generatePDF(getTargetElement, options);
+		setGenerateStatus(false);
 
-  } catch (error) {
-    console.error('PDF generation failed:', error);
-	setGenerateStatus(false);
-  } finally {
-    // Restore original styles
-    element.style.height = originalStyle.height;
-    element.style.overflow = originalStyle.overflow;
-  }
-};
+	} catch (error) {
+		console.error('PDF generation failed:', error);
+		setGenerateStatus(false);
+	} finally {
+		// Restore original styles
+		element.style.height = originalStyle.height;
+		element.style.overflow = originalStyle.overflow;
+	}
+	};
 
 
 
@@ -251,10 +251,10 @@ const handleGeneratePDF = async () => {
 			<div className={`grid grid-cols-1 ${fullScreenMode ? 'md:grid-cols-1' : 'md:grid-cols-2'} gap-y-10 md:gap-0 min-h-[100vh] px-4 pt-4 pb-0`}>
             {/* Markdown Input */}
             <div className="w-full">
-				<div className="flex justify-between border-t border-l bg-slate-100 border-r border-slate-400 px-5 py-3">
-					<h2 className=" text-slate-600 uppercase tracking-[1px]">Markdown</h2>
+				<div className={`flex justify-between border-t border-l ${themeMode==='dark' ? 'bg-dark border-slate-100 ' : 'bg-light border-slate-400'} border-r  px-5 py-3`}>
+					<h2 className={` ${themeMode ==='dark' ? 'text-white' : 'text-slate-600'} uppercase tracking-[1px]`}>Markdown</h2>
 					<div
-					className="text-slate-500 md:block hidden"
+					className={`${themeMode=='dark'? 'text-white' : 'text-slate-500'} md:block hidden`}
 						onClick={()=>{setFullScreenMode(prev => !prev)}}
 					>
 						{
@@ -271,10 +271,10 @@ const handleGeneratePDF = async () => {
 						}
 					</div>
 				</div>
-				<div className="h-[90vh] overflow-auto w-full border-r border-t border-l border-slate-400 flex flex-col">
+				<div className={`h-[90vh] overflow-auto w-full border-r border-t border-l ${themeMode==='dark' ? 'border-slate-100' : 'border-slate-400'} flex flex-col`}>
 					<textarea
 					onKeyDown={handleTab}
-						className="flex-grow w-full hide-scrollbar p-4 resize-none border-none outline-none text-slate-800"
+						className={`flex-grow w-full hide-scrollbar p-4 resize-none border-none outline-none ${themeMode === 'dark' ? 'text-white bg-dark' : 'text-slate-800 bg-white'}`}
 						value={markdown}
 						onChange={(e) => setMarkdown(e.target.value)}
 						placeholder="Type Markdown here..."
@@ -289,8 +289,8 @@ const handleGeneratePDF = async () => {
 
             {/* Preview Output */}
            {!fullScreenMode ?
-				<div className=" overflow-auto">
-					<div className="flex justify-between bg-slate-100 px-5 py-3 border-t border-r border-slate-400  text-slate-600 ">
+				<div className="overflow-auto">
+					<div className={`flex justify-between ${themeMode==='dark' ? 'bg-dark text-light' : 'bg-slate-100 text-slate-600 border-slate-400'}  px-5 py-3 border-t border-r    `}>
 						<h2 className=" uppercase tracking-[1px]">Preview</h2>
 						<div className=""
 							onClick={()=> {handleGeneratePDF()}}
@@ -318,44 +318,37 @@ const handleGeneratePDF = async () => {
 
 					<div 
 						id="content-id"
-					className="
-					hide-scrollbar  border-t border-r border-slate-400
-					text-slate-800  flex flex-col bg-slate-50/20
-					h-[90vh] w-full overflow-scroll
-					[&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
-					[&_h1]:font-bold [&_h2]:font-semibold
-					[&_h1]:my-4 [&_h2]:my-3 [&_h3]:my-2 [&_h4]:my-2
-					[&_h1]:mb-4 [&_h1]:pb-2 [&_h1]:border-b [&_h1]:border-gray-300
-					[&_h2]:mb-3 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-gray-300
-					[&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
-					[&_pre]:my-4 [&_img]:h-full [&_img]:w-full [&_img]:mx-auto [&_img]:block
-					[&_img]:rounded-md [&_img]:shadow-md [&_img]:my-0
-					[&_blockquote]:my-4 [&_blockquote]:border-l-4 [&_blockquote]:pl-4
-					[&_blockquote]:italic [&_blockquote]:bg-slate-50 [&_blockquote]:text-gray-600 [&_blockquote]:border-gray-300
-					[&_a]:font-semibold
-					[&_a]:transition [&_a]:duration-150 [&_a]:underline-offset-4
-					[&_a:hover]:text-blue-800 [&_a:hover]:decoration-wavy
-					[&_ul]:list-disc [&_ul]:pl-6
-					[&_ul>li]:mb-2 [&_ul>li]:text-gray-700
-					[&_ol]:list-decimal [&_ol]:pl-6
-					[&_ol>li]:mb-2 [&_ol>li]:text-gray-700
-					[&_a]:text-blue-600 [&_a]:no-underline
-					[&_a:hover]:underline
-					[&_table]:w-full [&_table]:border [&_table]:border-collapse [&_table]:table-auto
-					[&_th]:border [&_th]:border-gray-300 [&_th]:px-4 [&_th]:py-2 [&_th]:font-semibold [&_th]:bg-gray-200 [&_th]:text-left
-					[&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2 [&_td]:text-left
-					[&_tr:nth-child(even)]:bg-gray-50/50
-					[&_pre]:bg-gray-100 [&_pre]:text-slate-800 [&_pre]:p-4 [&_pre]:rounded-md [&_pre]:overflow-auto [&_pre]:mb-4
-					[&_pre]:max-h-96 [&_pre]:min-h-fit
-					[&_code]:font-mono [&_code]:text-sm
-					[&_code]:bg-gray-200 [&_code]:text-red-600 [&_code]:px-1 [&_code]:py-[2px] [&_code]:rounded-sm
-					[&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:rounded-none
-					
-					
-		
-					">
+						className={`hide-scrollbar border-t border-r flex flex-col h-[90vh] w-full overflow-scroll
+								[&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
+								[&_h1]:font-bold [&_h2]:font-semibold
+								[&_h1]:my-4 [&_h2]:my-3 [&_h3]:my-2 [&_h4]:my-2
+								[&_h1]:mb-4 [&_h1]:pb-2 [&_h1]:border-b 
+								[&_h2]:mb-3 [&_h2]:pb-1 [&_h2]:border-b 
+								[&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
+								[&_pre]:my-4 [&_img]:h-full [&_img]:w-full [&_img]:mx-auto [&_img]:block
+								[&_img]:rounded-md [&_img]:shadow-md [&_img]:my-0
+								[&_blockquote]:my-4 [&_blockquote]:border-l-4 [&_blockquote]:pl-4
+								[&_blockquote]:italic [&_blockquote]:bg-slate-50 [&_blockquote]:text-gray-600 [&_blockquote]:border-gray-300
+								[&_a]:font-semibold [&_a]:transition [&_a]:duration-150 [&_a]:underline-offset-4
+								[&_a]:text-blue-600 [&_a]:no-underline [&_a:hover]:text-blue-800 [&_a:hover]:decoration-wavy [&_a:hover]:underline
+								[&_ul]:list-disc [&_ul]:pl-6 [&_ul>li]:mb-2 [&_ul>li]:text-gray-700
+								[&_ol]:list-decimal [&_ol]:pl-6 [&_ol>li]:mb-2 [&_ol>li]:text-gray-700
+								[&_table]:w-full [&_table]:border [&_table]:border-collapse [&_table]:table-auto
+								[&_th]:border [&_th]:border-gray-300 [&_th]:px-4 [&_th]:py-2 [&_th]:font-semibold  [&_th]:text-left
+								[&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2 [&_td]:text-left
+								[&_tr:nth-child(even)]:bg-gray-50/50 [&_th]:bg-gray-200
+								[&_pre]:bg-gray-100 [&_pre]:text-slate-800 [&_pre]:p-4 [&_pre]:rounded-md [&_pre]:overflow-auto [&_pre]:mb-4 [&_pre]:max-h-96 [&_pre]:min-h-fit
+								[&_code]:font-mono [&_code]:text-sm [&_code]:bg-gray-200 [&_code]:text-red-600 [&_code]:px-1 [&_code]:py-[2px] [&_code]:rounded-sm
+								[&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:rounded-none
+								${themeMode === 'dark' 
+								? 'border-slate-400 [&_ul>li]:text-gray-100 [&_tr:nth-child(even)]:bg-dark [&_th]:bg-[#131111] [&_th]:text-[#e7e4e4]  [&_ol>li]:text-gray-100 [&_blockquote]:border-gray-400  [&_pre]:bg-slate-100 bg-slate-50/5 text-slate-800 [&_h1]:border-gray-300 [&_h2]:border-gray-300' 
+								: 'bg-dark text-light [&_h1]:border-dark   [&_h2]:border-dark'
+								}
+							`}
+						>
+
 						<div
-							className="h-full bg-white p-4 w-full overflow-auto flex flex-col"
+							className={`h-full ${themeMode==='dark' ? 'bg-dark text-white' :'bg-white text-slate-800'} p-4 w-full overflow-auto flex flex-col`}
 							dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
 						/>
 						<div className="text-right text-sm bg-slate-100 text-gray-500 p-1 select-none">

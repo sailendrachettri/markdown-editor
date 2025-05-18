@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Editor from '../editor/Editor';
 import Intro from '../intro/Intro';
+import Navbar from '../navbar/Navbar';
 
 const Homepage = () => {
     const [showIntro, setShowIntro] = useState(true);
     const [slideUp, setSlideUp] = useState(false);
+    const [themeMode, setThemeMode] = useState('dark');
 
     useEffect(() => {
         const timer1 = setTimeout(() => {
@@ -28,7 +30,10 @@ const Homepage = () => {
                     <Intro />
                 </div>
             ) : (
-                <Editor />
+                <div className={`${themeMode==='dark' ? 'bg-dark text-white' : 'bg-light text-slate-800 '}`}>
+                <Navbar setThemeMode={setThemeMode} themeMode={themeMode} />
+                <Editor setThemeMode={setThemeMode} themeMode={themeMode} />
+                </div>
             )}
         </div>
     );

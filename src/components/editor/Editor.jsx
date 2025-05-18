@@ -164,7 +164,7 @@ print(greet("Markdown"))
 
 - [x] Write markdown example
 - [x] Test in editor
-- [] Submit feedback
+- [ ] Submit feedback
 - [ ] Add dark mode toggle
 
 ---
@@ -233,28 +233,28 @@ const handleGeneratePDF = async () => {
     return (
         <>
 		<div>
-			<div className="grid grid-cols-1 md:grid-cols-2 min-h-[93vh] p-4 ">
+			<div className="grid grid-cols-1 md:grid-cols-2 min-h-[93vh] px-4 pt-4 ">
             {/* Markdown Input */}
-            <div>
+            <div className="bg-slate-100">
 				<h2 className="border-t border-l border-r border-slate-400 ps-5 py-3 text-slate-600 uppercase tracking-[1px]">Markdown</h2>
-				<div className="h-full w-full border-r border-t border-l border-slate-400 overflow-hidden flex flex-col">
-                <textarea
-                 onKeyDown={handleTab}
-                    className="flex-grow w-full hide-scrollbar p-4 resize-none border-none outline-none text-slate-800"
-                    value={markdown}
-                    onChange={(e) => setMarkdown(e.target.value)}
-                    placeholder="Type Markdown here..."
-                />
-                {/* Line count display */}
-              <div className="text-right text-sm text-gray-500 p-1 pe-3 select-none">
-                Lines: {lineCount}
-              </div>
+				<div className="h-[90vh] overflow-auto w-full border-r border-t border-l border-slate-400 flex flex-col">
+					<textarea
+					onKeyDown={handleTab}
+						className="flex-grow w-full hide-scrollbar p-4 resize-none border-none outline-none text-slate-800"
+						value={markdown}
+						onChange={(e) => setMarkdown(e.target.value)}
+						placeholder="Type Markdown here..."
+					/>
+					{/* Line count display */}
+				<div className="text-right bg-slate-50/30 text-sm text-gray-500 p-1 pe-3 select-none">
+					Lines: {lineCount}
+				</div>
             </div>
 			</div>
 
             {/* Preview Output */}
-           <div>
-				<div className="flex  justify-between px-5 py-3 border-t border-r border-slate-400  text-slate-600 ">
+           <div className="bg-slate-100 overflow-auto">
+				<div className="flex justify-between px-5 py-3 border-t border-r border-slate-400  text-slate-600 ">
 					<h2 className=" uppercase tracking-[1px]">Preview</h2>
 					<div className=""
 						onClick={()=> {handleGeneratePDF()}}
@@ -279,13 +279,13 @@ const handleGeneratePDF = async () => {
 						}
 					</div>
 				</div>
+
 				<div 
-				id="content-id"
+					id="content-id"
 				className="
 				hide-scrollbar  border-t border-r border-slate-400
-			text-slate-800  flex flex-col bg-slate-50/20
-				overflow-auto
-				w-full h-full
+				text-slate-800  flex flex-col bg-slate-50/20
+				h-[90vh] w-full
 				[&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
 				[&_h1]:font-bold [&_h2]:font-semibold
 				[&_h1]:my-4 [&_h2]:my-3 [&_h3]:my-2 [&_h4]:my-2
@@ -317,12 +317,12 @@ const handleGeneratePDF = async () => {
 	
 				">
 					<div
-						className="h-full bg-white p-4 w-full overflow-hidden flex flex-col"
+						className="h-full bg-white p-4 w-full overflow-auto flex flex-col"
 						dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
 					/>
 					<div className="text-right text-sm text-gray-500 p-1 select-none">
 					Reading Time: {getReadingTime(wordsCount || '')} <span className="px-1">•</span> Words: {wordsCount} <span className="px-1">•</span> Characters : {charactersCount}
-				</div>
+					</div>
 
 				</div>
 		   </div>

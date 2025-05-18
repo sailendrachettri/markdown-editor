@@ -55,21 +55,6 @@ Welcome to **_your very own_** Markdown editor. This sample document will help y
 
 ---
 
-## 📚 Table of Contents
-
-1. [Headings](#headings)
-2. [Text Styles](#text-styles)
-3. [Lists](#lists)
-4. [Links & Images](#links--images)
-5. [Code Blocks](#code-blocks)
-6. [Tables](#tables)
-7. [Blockquotes](#blockquotes)
-8. [Horizontal Rule](#horizontal-rule)
-9. [Task List](#task-list)
-10. [Emoji Test](#emoji-test)
-
----
-
 
 ## 💬 Blockquotes
 
@@ -84,6 +69,21 @@ Welcome to **_your very own_** Markdown editor. This sample document will help y
 #### H4
 ##### H5
 ###### H6
+
+---
+
+## 📚 Table of Contents
+
+1. [Headings](#headings)
+2. [Text Styles](#text-styles)
+3. [Lists](#lists)
+4. [Links & Images](#links--images)
+5. [Code Blocks](#code-blocks)
+6. [Tables](#tables)
+7. [Blockquotes](#blockquotes)
+8. [Horizontal Rule](#horizontal-rule)
+9. [Task List](#task-list)
+10. [Emoji Test](#emoji-test)
 
 ---
 
@@ -346,9 +346,11 @@ const handleGeneratePDF = async () => {
 					[&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2 [&_td]:text-left
 					[&_tr:nth-child(even)]:bg-gray-50/50
 					[&_pre]:bg-gray-100 [&_pre]:text-slate-800 [&_pre]:p-4 [&_pre]:rounded-md [&_pre]:overflow-auto [&_pre]:mb-4
+					[&_pre]:max-h-96 [&_pre]:min-h-fit
 					[&_code]:font-mono [&_code]:text-sm
 					[&_code]:bg-gray-200 [&_code]:text-red-600 [&_code]:px-1 [&_code]:py-[2px] [&_code]:rounded-sm
 					[&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:rounded-none
+					
 					
 		
 					">

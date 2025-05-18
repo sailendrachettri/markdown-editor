@@ -175,6 +175,7 @@ print(greet("Markdown"))
 `);
 
 	const [generateStatus, setGenerateStatus] = useState(false);
+	const [fullScreenMode, setFullScreenMode] = useState(false);
 
   // Calculate sanitized HTML once per markdown change
   const [sanitizedHtml, setSanitizedHtml] = useState("");
@@ -247,10 +248,29 @@ const handleGeneratePDF = async () => {
     return (
         <>
 		<div>
-			<div className="grid grid-cols-1 md:grid-cols-2 min-h-[100vh] px-4 pt-4 pb-0 ">
+			<div className={`grid grid-cols-1 ${fullScreenMode ? 'md:grid-cols-1' : 'md:grid-cols-2'} min-h-[100vh] px-4 pt-4 pb-0`}>
             {/* Markdown Input */}
-            <div>
-				<h2 className="border-t border-l bg-slate-100 border-r border-slate-400 ps-5 py-3 text-slate-600 uppercase tracking-[1px]">Markdown</h2>
+            <div className="w-full">
+				<div className="flex justify-between border-t border-l bg-slate-100 border-r border-slate-400 px-5 py-3">
+					<h2 className=" text-slate-600 uppercase tracking-[1px]">Markdown</h2>
+					<div
+					className="text-slate-500"
+						onClick={()=>{setFullScreenMode(prev => !prev)}}
+					>
+						{
+							fullScreenMode ?
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer hover:text-blue-500">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25" />
+							</svg>
+								:
+							
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 cursor-pointer hover:text-blue-500">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+							</svg>
+
+						}
+					</div>
+				</div>
 				<div className="h-[90vh] overflow-auto w-full border-r border-t border-l border-slate-400 flex flex-col">
 					<textarea
 					onKeyDown={handleTab}
@@ -261,85 +281,88 @@ const handleGeneratePDF = async () => {
 					/>
 					{/* Line count display */}
 				<div className="text-right bg-slate-100 text-sm text-gray-500 p-1 pe-3 select-none">
-					Lines: {lineCount}
+					Lines: {lineCount} 
 				</div>
+				
             </div>
 			</div>
 
             {/* Preview Output */}
-           <div className=" overflow-auto">
-				<div className="flex justify-between bg-slate-100 px-5 py-3 border-t border-r border-slate-400  text-slate-600 ">
-					<h2 className=" uppercase tracking-[1px]">Preview</h2>
-					<div className=""
-						onClick={()=> {handleGeneratePDF()}}
-					>
-						{generateStatus ? <div>
-							<div className="flex gap-x-1 text-sm cursor-pointer w-fit">
-							<div>Generating...</div>
+           {!fullScreenMode ?
+				<div className=" overflow-auto">
+					<div className="flex justify-between bg-slate-100 px-5 py-3 border-t border-r border-slate-400  text-slate-600 ">
+						<h2 className=" uppercase tracking-[1px]">Preview</h2>
+						<div className=""
+							onClick={()=> {handleGeneratePDF()}}
+						>
+							{generateStatus ? <div>
+								<div className="flex gap-x-1 text-sm cursor-pointer w-fit">
+								<div>Generating...</div>
 
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 animate-spin">
-								<path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-							</svg>
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 animate-spin">
+									<path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+								</svg>
 
+							</div>
+							</div> :
+								<div className="flex gap-x-1 text-sm cursor-pointer w-fit">
+								<div>Export as PDF</div>
+
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
+									<path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+								</svg>
+							</div>
+							}
 						</div>
-						</div> :
-							<div className="flex gap-x-1 text-sm cursor-pointer w-fit">
-							<div>Export as PDF</div>
-
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
-								<path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-							</svg>
-						</div>
-						}
-					</div>
-				</div>
-
-				<div 
-					id="content-id"
-				className="
-				hide-scrollbar  border-t border-r border-slate-400
-				text-slate-800  flex flex-col bg-slate-50/20
-				h-[90vh] w-full overflow-scroll
-				[&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
-				[&_h1]:font-bold [&_h2]:font-semibold
-				[&_h1]:my-4 [&_h2]:my-3 [&_h3]:my-2 [&_h4]:my-2
-				[&_h1]:mb-4 [&_h1]:pb-2 [&_h1]:border-b [&_h1]:border-gray-300
-				[&_h2]:mb-3 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-gray-300
-				[&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
-				[&_pre]:my-4 [&_img]:h-full [&_img]:w-full [&_img]:mx-auto [&_img]:block
-				[&_img]:rounded-md [&_img]:shadow-md [&_img]:my-0
-				[&_blockquote]:my-4 [&_blockquote]:border-l-4 [&_blockquote]:pl-4
-				[&_blockquote]:italic [&_blockquote]:bg-slate-50 [&_blockquote]:text-gray-600 [&_blockquote]:border-gray-300
-				[&_a]:font-semibold
-				[&_a]:transition [&_a]:duration-150 [&_a]:underline-offset-4
-				[&_a:hover]:text-blue-800 [&_a:hover]:decoration-wavy
-				[&_ul]:list-disc [&_ul]:pl-6
-				[&_ul>li]:mb-2 [&_ul>li]:text-gray-700
-				[&_ol]:list-decimal [&_ol]:pl-6
-				[&_ol>li]:mb-2 [&_ol>li]:text-gray-700
-				[&_a]:text-blue-600 [&_a]:no-underline
-				[&_a:hover]:underline
-				[&_table]:w-full [&_table]:border [&_table]:border-collapse [&_table]:table-auto
-				[&_th]:border [&_th]:border-gray-300 [&_th]:px-4 [&_th]:py-2 [&_th]:font-semibold [&_th]:bg-gray-200 [&_th]:text-left
-				[&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2 [&_td]:text-left
-				[&_tr:nth-child(even)]:bg-gray-50/50
-				[&_pre]:bg-gray-100 [&_pre]:text-slate-800 [&_pre]:p-4 [&_pre]:rounded-md [&_pre]:overflow-auto [&_pre]:mb-4
-				[&_code]:font-mono [&_code]:text-sm
-				[&_code]:bg-gray-200 [&_code]:text-red-600 [&_code]:px-1 [&_code]:py-[2px] [&_code]:rounded-sm
-				[&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:rounded-none
-				
-	
-				">
-					<div
-						className="h-full bg-white p-4 w-full overflow-auto flex flex-col"
-						dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
-					/>
-					<div className="text-right text-sm bg-slate-100 text-gray-500 p-1 select-none">
-					Reading Time: {getReadingTime(wordsCount || '')} <span className="px-1">•</span> Words: {wordsCount} <span className="px-1">•</span> Characters : {charactersCount}
 					</div>
 
-				</div>
-		   </div>
+					<div 
+						id="content-id"
+					className="
+					hide-scrollbar  border-t border-r border-slate-400
+					text-slate-800  flex flex-col bg-slate-50/20
+					h-[90vh] w-full overflow-scroll
+					[&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
+					[&_h1]:font-bold [&_h2]:font-semibold
+					[&_h1]:my-4 [&_h2]:my-3 [&_h3]:my-2 [&_h4]:my-2
+					[&_h1]:mb-4 [&_h1]:pb-2 [&_h1]:border-b [&_h1]:border-gray-300
+					[&_h2]:mb-3 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-gray-300
+					[&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
+					[&_pre]:my-4 [&_img]:h-full [&_img]:w-full [&_img]:mx-auto [&_img]:block
+					[&_img]:rounded-md [&_img]:shadow-md [&_img]:my-0
+					[&_blockquote]:my-4 [&_blockquote]:border-l-4 [&_blockquote]:pl-4
+					[&_blockquote]:italic [&_blockquote]:bg-slate-50 [&_blockquote]:text-gray-600 [&_blockquote]:border-gray-300
+					[&_a]:font-semibold
+					[&_a]:transition [&_a]:duration-150 [&_a]:underline-offset-4
+					[&_a:hover]:text-blue-800 [&_a:hover]:decoration-wavy
+					[&_ul]:list-disc [&_ul]:pl-6
+					[&_ul>li]:mb-2 [&_ul>li]:text-gray-700
+					[&_ol]:list-decimal [&_ol]:pl-6
+					[&_ol>li]:mb-2 [&_ol>li]:text-gray-700
+					[&_a]:text-blue-600 [&_a]:no-underline
+					[&_a:hover]:underline
+					[&_table]:w-full [&_table]:border [&_table]:border-collapse [&_table]:table-auto
+					[&_th]:border [&_th]:border-gray-300 [&_th]:px-4 [&_th]:py-2 [&_th]:font-semibold [&_th]:bg-gray-200 [&_th]:text-left
+					[&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2 [&_td]:text-left
+					[&_tr:nth-child(even)]:bg-gray-50/50
+					[&_pre]:bg-gray-100 [&_pre]:text-slate-800 [&_pre]:p-4 [&_pre]:rounded-md [&_pre]:overflow-auto [&_pre]:mb-4
+					[&_code]:font-mono [&_code]:text-sm
+					[&_code]:bg-gray-200 [&_code]:text-red-600 [&_code]:px-1 [&_code]:py-[2px] [&_code]:rounded-sm
+					[&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:rounded-none
+					
+		
+					">
+						<div
+							className="h-full bg-white p-4 w-full overflow-auto flex flex-col"
+							dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+						/>
+						<div className="text-right text-sm bg-slate-100 text-gray-500 p-1 select-none">
+						Reading Time: {getReadingTime(wordsCount || '')} <span className="px-1">•</span> Words: {wordsCount} <span className="px-1">•</span> Characters : {charactersCount}
+						</div>
+
+					</div>
+			</div> : null
+		   }
         </div>
 		</div>
 		</>

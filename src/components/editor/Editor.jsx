@@ -40,6 +40,8 @@ const options = {
    },
 };
 
+const containerHeight = "h-[86.3vh]";
+
 // you can use a function to return the target element besides using React refs
 const getTargetElement = () => document.getElementById('content-id');
 
@@ -270,7 +272,7 @@ print(greet("Markdown"))
 						}
 					</div>
 				</div>
-				<div className={`h-[90vh] overflow-auto w-full border-r border-t border-l ${themeMode==='dark' ? 'border-slate-100' : 'border-slate-400'} flex flex-col`}>
+				<div className={`${containerHeight} overflow-auto w-full border-r border-t border-l ${themeMode==='dark' ? 'border-slate-100' : 'border-slate-400'} flex flex-col`}>
 					<textarea
 					onKeyDown={handleTab}
 						className={`flex-grow w-full hide-scrollbar p-4 resize-none border-none outline-none ${themeMode === 'dark' ? 'text-white bg-dark' : 'text-slate-800 bg-white'}`}
@@ -317,7 +319,7 @@ print(greet("Markdown"))
 
 					<div 
 						id="content-id"
-						className={`hide-scrollbar border-t border-r flex flex-col h-[90vh] w-full overflow-scroll
+						className={`hide-scrollbar border-t border-r flex flex-col ${containerHeight} w-full overflow-scroll
 								[&_h1]:text-4xl [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl
 								[&_h1]:font-bold [&_h2]:font-semibold
 								[&_h1]:my-4 [&_h2]:my-3 [&_h3]:my-2 [&_h4]:my-2

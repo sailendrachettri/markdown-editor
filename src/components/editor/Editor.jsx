@@ -91,7 +91,7 @@ const Editor = () => {
 					</div>
 				</div>
 				<div 
-				// ref={pdfRef}
+				ref={pdfRef}
 				className="
 				hide-scrollbar  border-t border-r border-slate-400
 			text-slate-800  flex flex-col bg-slate-50/20
@@ -127,7 +127,6 @@ const Editor = () => {
 	
 				">
 					<div
-					ref={pdfRef}
 						className="h-full bg-white p-4 w-full overflow-hidden flex flex-col"
 						dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
 					/>

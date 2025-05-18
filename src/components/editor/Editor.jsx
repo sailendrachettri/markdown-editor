@@ -233,10 +233,10 @@ const handleGeneratePDF = async () => {
     return (
         <>
 		<div>
-			<div className="grid grid-cols-1 md:grid-cols-2 min-h-[93vh] px-4 pt-4 ">
+			<div className="grid grid-cols-1 md:grid-cols-2 min-h-[100vh] px-4 pt-4 pb-0 ">
             {/* Markdown Input */}
-            <div className="bg-slate-100">
-				<h2 className="border-t border-l border-r border-slate-400 ps-5 py-3 text-slate-600 uppercase tracking-[1px]">Markdown</h2>
+            <div>
+				<h2 className="border-t border-l bg-slate-100 border-r border-slate-400 ps-5 py-3 text-slate-600 uppercase tracking-[1px]">Markdown</h2>
 				<div className="h-[90vh] overflow-auto w-full border-r border-t border-l border-slate-400 flex flex-col">
 					<textarea
 					onKeyDown={handleTab}
@@ -246,15 +246,15 @@ const handleGeneratePDF = async () => {
 						placeholder="Type Markdown here..."
 					/>
 					{/* Line count display */}
-				<div className="text-right bg-slate-50/30 text-sm text-gray-500 p-1 pe-3 select-none">
+				<div className="text-right bg-slate-100 text-sm text-gray-500 p-1 pe-3 select-none">
 					Lines: {lineCount}
 				</div>
             </div>
 			</div>
 
             {/* Preview Output */}
-           <div className="bg-slate-100 overflow-auto">
-				<div className="flex justify-between px-5 py-3 border-t border-r border-slate-400  text-slate-600 ">
+           <div className=" overflow-auto">
+				<div className="flex justify-between bg-slate-100 px-5 py-3 border-t border-r border-slate-400  text-slate-600 ">
 					<h2 className=" uppercase tracking-[1px]">Preview</h2>
 					<div className=""
 						onClick={()=> {handleGeneratePDF()}}
@@ -320,7 +320,7 @@ const handleGeneratePDF = async () => {
 						className="h-full bg-white p-4 w-full overflow-auto flex flex-col"
 						dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
 					/>
-					<div className="text-right text-sm text-gray-500 p-1 select-none">
+					<div className="text-right text-sm bg-slate-100 text-gray-500 p-1 select-none">
 					Reading Time: {getReadingTime(wordsCount || '')} <span className="px-1">•</span> Words: {wordsCount} <span className="px-1">•</span> Characters : {charactersCount}
 					</div>
 

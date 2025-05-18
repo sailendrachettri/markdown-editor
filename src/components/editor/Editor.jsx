@@ -1,7 +1,6 @@
 import  { useEffect, useState } from "react";
 import { marked } from "marked";
 import DOMPurify from 'dompurify';
-import { useRef } from 'react';
 import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 import getReadingTime from "../../utility/functions/GetReadingTime";
 

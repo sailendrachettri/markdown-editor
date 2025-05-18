@@ -1,18 +1,11 @@
-import React, { useState } from 'react'
+import ToggleButton from '../../utility/functions/buttons/day-night/DayNightButton';
 
 const Navbar = ({themeMode, setThemeMode}) => {
 
-  const handleChangeTheme = ()=>{
-    if(themeMode === "dark"){
-      setThemeMode("light");
-    }
-    else{
-      setThemeMode('dark')
-    }
-  }
-
   return (
-    <div onClick={()=>{handleChangeTheme()}}>Toggle theme</div>
+    <>
+      <ToggleButton setThemeMode={setThemeMode} themeMode={themeMode}/>
+    </>
   )
 }
 

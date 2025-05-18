@@ -22,3 +22,16 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Homepage css */
+.intro-wrapper {
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.intro-wrapper.slide-up {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+

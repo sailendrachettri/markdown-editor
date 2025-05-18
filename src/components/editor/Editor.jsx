@@ -337,6 +337,12 @@ print(greet("Markdown"))
 								[&_th]:border [&_th]:border-gray-300 [&_th]:px-4 [&_th]:py-2 [&_th]:font-semibold  [&_th]:text-left
 								[&_td]:border [&_td]:border-gray-300 [&_td]:px-4 [&_td]:py-2 [&_td]:text-left
 								[&_tr:nth-child(even)]:bg-gray-50/50 [&_th]:bg-gray-200
+								[&_input[type="checkbox"]]:accent-blue-600
+								[&_input[type="checkbox"]]:h-4
+								[&_input[type="checkbox"]]:w-4
+								[&_input[type="checkbox"]]:mr-2
+								[&_input[type="checkbox"]]:align-middle
+								[&_input[type="checkbox"]]:rounded
 								[&_pre]:bg-gray-100 [&_pre]:text-slate-800 [&_pre]:p-4 [&_pre]:rounded-md [&_pre]:overflow-auto [&_pre]:mb-4 [&_pre]:max-h-96 [&_pre]:min-h-fit
 								[&_code]:font-mono [&_code]:text-sm [&_code]:bg-gray-200 [&_code]:text-red-600 [&_code]:px-1 [&_code]:py-[2px] [&_code]:rounded-sm
 								[&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:rounded-none

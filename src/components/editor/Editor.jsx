@@ -47,9 +47,11 @@ const getTargetElement = () => document.getElementById('content-id');
 const Editor = () => {
 	const [wordsCount, setWordsCount] = useState(0);
   	const [charactersCount, setCharactersCount] = useState(0);  
- 	const [markdown, setMarkdown] = useState(`# 🌟 Welcome to My Markdown Editor
+ 	const [markdown, setMarkdown] = useState(`# 🌟 Online Markdown Editor
 
 Welcome to **_your very own_** Markdown editor. This sample document will help you test all major Markdown features!
+
+<!-- You can write comment like this for your reference -->
 
 ---
 
@@ -67,6 +69,12 @@ Welcome to **_your very own_** Markdown editor. This sample document will help y
 10. [Emoji Test](#emoji-test)
 
 ---
+
+
+## 💬 Blockquotes
+
+> Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents.
+
 
 ## 🅰️ Headings
 
@@ -108,13 +116,11 @@ Welcome to **_your very own_** Markdown editor. This sample document will help y
 
 ### 🌐 Link
 
-[Visit OpenAI](https://openai.com)
+Open [Browser](https://openai.com) and type [google.com](https://google.com)
 
 ### 🖼️ Image
 
-![Markdown Logo](https://picsum.photos/400/200)
-
----
+![Picture](https://picsum.photos/400/200)
 
 ## 💻 Code Blocks
 
@@ -150,12 +156,6 @@ print(greet("Markdown"))
 
 ---
 
-## 💬 Blockquotes
-
-> Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents.
-
----
-
 ## ⬇️ Horizontal Rule
 
 ---
@@ -164,7 +164,7 @@ print(greet("Markdown"))
 
 - [x] Write markdown example
 - [x] Test in editor
-- [ ] Submit feedback
+- [] Submit feedback
 - [ ] Add dark mode toggle
 
 ---
@@ -293,7 +293,7 @@ const handleGeneratePDF = async () => {
 				[&_h2]:mb-3 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-gray-300
 				[&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
 				[&_pre]:my-4 [&_img]:h-full [&_img]:w-full [&_img]:mx-auto [&_img]:block
-				[&_img]:rounded-md [&_img]:shadow-md [&_img]:my-4
+				[&_img]:rounded-md [&_img]:shadow-md [&_img]:my-0
 				[&_blockquote]:my-4 [&_blockquote]:border-l-4 [&_blockquote]:pl-4
 				[&_blockquote]:italic [&_blockquote]:bg-slate-50 [&_blockquote]:text-gray-600 [&_blockquote]:border-gray-300
 				[&_a]:font-semibold

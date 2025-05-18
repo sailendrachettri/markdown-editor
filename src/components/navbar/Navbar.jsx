@@ -12,4 +12,4 @@ const Navbar = ({themeMode, setThemeMode}) => {
   )
 }
 
-export default Navbar
+export default Navbar;

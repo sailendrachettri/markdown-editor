@@ -346,11 +346,11 @@ print(greet("Markdown"))
 								[&_code]:font-mono [&_code]:text-sm [&_code]:bg-gray-200 [&_code]:text-red-600 [&_code]:px-1 [&_code]:py-[2px] [&_code]:rounded-sm
 								[&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:rounded-none
 								${themeMode === 'dark' 
-								? 'border-slate-400 [&_ul>li]:text-gray-100 [&_tr:nth-child(even)]:bg-dark [&_th]:bg-[#131111] [&_th]:text-[#e7e4e4]  [&_ol>li]:text-gray-100 [&_blockquote]:border-gray-400  [&_pre]:bg-slate-100 bg-slate-50/5 text-slate-800 [&_h1]:border-gray-300 [&_h2]:border-gray-300' 
+								? 'border-slate-400 [&_ul>li]:text-slate-50 [&_ol>li]:text-slate-50 [&_tr:nth-child(even)]:bg-[#1a1a1a] [&_th]:bg-[#252424] [&_th]:text-[#e7e4e4]   [&_blockquote]:border-gray-400  [&_pre]:bg-slate-100 bg-slate-50/5 text-slate-800 [&_h1]:border-gray-300 [&_h2]:border-gray-300' 
 								: 'bg-dark text-light [&_h1]:border-dark   [&_h2]:border-dark'
 								}
 							`}
-						>
+						> 	
 
 						<div
 							className={`h-full ${themeMode==='dark' ? 'bg-dark text-white' :'bg-white text-slate-800'} p-4 w-full overflow-auto flex flex-col`}

@@ -2,14 +2,53 @@ import  { useEffect, useState } from "react";
 import { marked } from "marked";
 import DOMPurify from 'dompurify';
 import { useRef } from 'react';
-import generatePDF from 'react-to-pdf';
+import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 import getReadingTime from "../../utility/functions/GetReadingTime";
+
+const options = {
+   // default is `save`
+   method: 'open',
+   // default is Resolution.MEDIUM = 3, which should be enough, higher values
+   // increases the image quality but also the size of the PDF, so be careful
+   // using values higher than 10 when having multiple pages generated, it
+   // might cause the page to crash or hang.
+   resolution: Resolution.HIGH,
+   page: {
+      // margin is in MM, default is Margin.NONE = 0
+      margin: Margin.SMALL,
+      // default is 'A4'
+      format: 'letter',
+      // default is 'portrait'
+      orientation: 'portrait',
+   },
+   canvas: {
+      // default is 'image/jpeg' for better size performance
+      mimeType: 'image/jpeg',
+      qualityRatio: 1
+   },
+   // Customize any value passed to the jsPDF instance and html2canvas
+   // function. You probably will not need this and things can break, 
+   // so use with caution.
+   overrides: {
+      // see https://artskydj.github.io/jsPDF/docs/jsPDF.html for more options
+      pdf: {
+         compress: true
+      },
+      // see https://html2canvas.hertzen.com/configuration for more options
+      canvas: {
+         useCORS: true
+      }
+   },
+};
+
+// you can use a function to return the target element besides using React refs
+const getTargetElement = () => document.getElementById('content-id');
 
 const Editor = () => {
 	const [wordsCount, setWordsCount] = useState(0);
   	const [charactersCount, setCharactersCount] = useState(0);  
  	const [markdown, setMarkdown] = useState(``);
-  	const pdfRef = useRef();
+	const [generateStatus, setGenerateStatus] = useState(false);
 
   // Calculate sanitized HTML once per markdown change
   const [sanitizedHtml, setSanitizedHtml] = useState("");
@@ -51,6 +90,10 @@ const Editor = () => {
     }
   };
 
+  setTimeout(() => {
+	setGenerateStatus(false);
+  }, 5000);
+
 
 
     return (
@@ -79,19 +122,31 @@ const Editor = () => {
            <div>
 				<div className="flex  justify-between px-5 py-3 border-t border-r border-slate-400  text-slate-600 ">
 					<h2 className=" uppercase tracking-[1px]">Preview</h2>
-					<div className="flex gap-x-1 text-sm cursor-pointer w-fit"
-						onClick={() => generatePDF(pdfRef, {filename: 'page.pdf'})}	
+					<div className=""
+						onClick={() => {setGenerateStatus(true); generatePDF(getTargetElement, options); }}	
 					>
-						<div>Export as PDF</div>
+						{generateStatus ? <div>
+							<div className="flex gap-x-1 text-sm cursor-pointer w-fit">
+							<div>Generating...</div>
 
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-						</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 animate-spin">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+							</svg>
 
+						</div>
+						</div> :
+							<div className="flex gap-x-1 text-sm cursor-pointer w-fit">
+							<div>Export as PDF</div>
+
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+							</svg>
+						</div>
+						}
 					</div>
 				</div>
 				<div 
-				ref={pdfRef}
+				id="content-id"
 				className="
 				hide-scrollbar  border-t border-r border-slate-400
 			text-slate-800  flex flex-col bg-slate-50/20

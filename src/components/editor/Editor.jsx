@@ -43,7 +43,7 @@ const options = {
 // you can use a function to return the target element besides using React refs
 const getTargetElement = () => document.getElementById('content-id');
 
-const Editor = ({themeMode, setThemeMode}) => {
+const Editor = ({themeMode}) => {
 	const [wordsCount, setWordsCount] = useState(0);
   	const [charactersCount, setCharactersCount] = useState(0);  
  	const [markdown, setMarkdown] = useState(`# 🌟 Online Markdown Editor
@@ -247,7 +247,7 @@ print(greet("Markdown"))
     return (
         <>
 		<div>
-			<div className={`grid grid-cols-1 ${fullScreenMode ? 'md:grid-cols-1' : 'md:grid-cols-2'} gap-y-10 md:gap-0 min-h-[100vh] px-4 pt-4 pb-0`}>
+			<div className={`grid grid-cols-1 ${fullScreenMode ? 'md:grid-cols-1' : 'md:grid-cols-2'} gap-y-10 md:gap-0 min-h-[100vh] px-4 pt-2 pb-0`}>
             {/* Markdown Input */}
             <div className="w-full">
 				<div className={`flex justify-between border-t border-l ${themeMode==='dark' ? 'bg-dark border-slate-100 ' : 'bg-light border-slate-400'} border-r  px-5 py-3`}>

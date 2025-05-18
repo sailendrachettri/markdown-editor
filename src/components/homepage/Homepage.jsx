@@ -31,8 +31,8 @@ const Homepage = () => {
                 </div>
             ) : (
                 <div className={`${themeMode==='dark' ? 'bg-dark text-white' : 'bg-light text-slate-800 '}`}>
-                <Navbar setThemeMode={setThemeMode} themeMode={themeMode} />
-                <Editor setThemeMode={setThemeMode} themeMode={themeMode} />
+                    <Navbar setThemeMode={setThemeMode} themeMode={themeMode} />
+                    <Editor themeMode={themeMode} />
                 </div>
             )}
         </div>

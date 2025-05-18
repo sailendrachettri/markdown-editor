@@ -1,11 +1,11 @@
 import './App.css';
-import Editor from './components/editor/Editor';
 import 'highlight.js/styles/github-dark.css';
+import Homepage from './components/homepage/Homepage';
 
 const App = () => {
   return (
     <>
-     <Editor /> 
+     <Homepage /> 
     </>
   )
 }

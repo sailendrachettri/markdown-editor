@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  scrollbar-width: smooth;
+}
+
 
 /* For Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {

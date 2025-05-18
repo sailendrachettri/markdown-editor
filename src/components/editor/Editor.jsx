@@ -47,7 +47,133 @@ const getTargetElement = () => document.getElementById('content-id');
 const Editor = () => {
 	const [wordsCount, setWordsCount] = useState(0);
   	const [charactersCount, setCharactersCount] = useState(0);  
- 	const [markdown, setMarkdown] = useState(``);
+ 	const [markdown, setMarkdown] = useState(`# 🌟 Welcome to My Markdown Editor
+
+Welcome to **_your very own_** Markdown editor. This sample document will help you test all major Markdown features!
+
+---
+
+## 📚 Table of Contents
+
+1. [Headings](#headings)
+2. [Text Styles](#text-styles)
+3. [Lists](#lists)
+4. [Links & Images](#links--images)
+5. [Code Blocks](#code-blocks)
+6. [Tables](#tables)
+7. [Blockquotes](#blockquotes)
+8. [Horizontal Rule](#horizontal-rule)
+9. [Task List](#task-list)
+10. [Emoji Test](#emoji-test)
+
+---
+
+## 🅰️ Headings
+
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+
+---
+
+## ✍️ Text Styles
+
+- **Bold**
+- _Italic_
+- ~~Strikethrough~~
+- **_Bold & Italic_**
+
+---
+
+## 📋 Lists
+
+### ✅ Unordered List
+- Item One
+  - Nested Item
+    - Sub-nested Item
+- Item Two
+- Item Three
+
+### 🔢 Ordered List
+1. First
+2. Second
+3. Third
+
+---
+
+## 🔗 Links & Images
+
+### 🌐 Link
+
+[Visit OpenAI](https://openai.com)
+
+### 🖼️ Image
+
+![Markdown Logo](https://picsum.photos/400/200)
+
+---
+
+## 💻 Code Blocks
+
+### Inline Code
+Here is some inline code: \`console.log("Hello, Markdown!")\`
+
+### JavaScript Example
+
+\`\`\`javascript
+function greet(name) {
+  return \`Hello, \${name}!\`;
+}
+console.log(greet("World"));
+\`\`\`
+
+### Python Example
+
+\`\`\`python
+def greet(name):
+    return f"Hello, {name}!"
+print(greet("Markdown"))
+\`\`\`
+
+---
+
+## 📊 Tables
+
+| Feature       | Supported | Notes                   |
+|---------------|-----------|--------------------------|
+| Bold          | ✅         | Use \`**text**\`           |
+| Images        | ✅         | Must be a valid URL      |
+| Nested Lists  | ✅         | Indentation required     |
+
+---
+
+## 💬 Blockquotes
+
+> Markdown is a lightweight markup language that you can use to add formatting elements to plaintext text documents.
+
+---
+
+## ⬇️ Horizontal Rule
+
+---
+
+## 📌 Task List
+
+- [x] Write markdown example
+- [x] Test in editor
+- [ ] Submit feedback
+- [ ] Add dark mode toggle
+
+---
+
+## 😀 Emoji Test
+
+✅ 👍 💡 🚀 ✨ 😍 🔥 🎉 🛠️ 🎯 📝
+`);
+
 	const [generateStatus, setGenerateStatus] = useState(false);
 
   // Calculate sanitized HTML once per markdown change
@@ -90,9 +216,17 @@ const Editor = () => {
     }
   };
 
-  setTimeout(() => {
-	setGenerateStatus(false);
-  }, 5000);
+const handleGeneratePDF = async () => {
+	try {
+		setGenerateStatus(true);
+		await generatePDF(getTargetElement, options);
+		setGenerateStatus(false);
+
+	} catch (error) {
+		console.error('PDF generation failed:', error);
+		setGenerateStatus(false);
+	} 
+};
 
 
 
@@ -123,7 +257,7 @@ const Editor = () => {
 				<div className="flex  justify-between px-5 py-3 border-t border-r border-slate-400  text-slate-600 ">
 					<h2 className=" uppercase tracking-[1px]">Preview</h2>
 					<div className=""
-						onClick={() => {setGenerateStatus(true); generatePDF(getTargetElement, options); }}	
+						onClick={()=> {handleGeneratePDF()}}
 					>
 						{generateStatus ? <div>
 							<div className="flex gap-x-1 text-sm cursor-pointer w-fit">
@@ -158,7 +292,8 @@ const Editor = () => {
 				[&_h1]:mb-4 [&_h1]:pb-2 [&_h1]:border-b [&_h1]:border-gray-300
 				[&_h2]:mb-3 [&_h2]:pb-1 [&_h2]:border-b [&_h2]:border-gray-300
 				[&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
-				[&_pre]:my-4 [&_img]:h-10 [&_img]:w-10 [&_img]:mx-auto [&_img]:block
+				[&_pre]:my-4 [&_img]:h-full [&_img]:w-full [&_img]:mx-auto [&_img]:block
+				[&_img]:rounded-md [&_img]:shadow-md [&_img]:my-4
 				[&_blockquote]:my-4 [&_blockquote]:border-l-4 [&_blockquote]:pl-4
 				[&_blockquote]:italic [&_blockquote]:bg-slate-50 [&_blockquote]:text-gray-600 [&_blockquote]:border-gray-300
 				[&_a]:font-semibold
@@ -178,7 +313,7 @@ const Editor = () => {
 				[&_code]:font-mono [&_code]:text-sm
 				[&_code]:bg-gray-200 [&_code]:text-red-600 [&_code]:px-1 [&_code]:py-[2px] [&_code]:rounded-sm
 				[&_pre_code]:bg-transparent [&_pre_code]:text-inherit [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:rounded-none
-				[&_img]:max-w-full [&_img]:rounded-md [&_img]:shadow-md [&_img]:my-4
+				
 	
 				">
 					<div

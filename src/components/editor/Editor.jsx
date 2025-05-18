@@ -281,7 +281,7 @@ print(greet("Markdown"))
 						placeholder="Type Markdown here..."
 					/>
 					{/* Line count display */}
-				<div className="text-right bg-slate-100 text-sm text-gray-500 p-1 pe-3 select-none">
+				<div className={`text-right bg-slate-100 text-sm text-gray-500 p-1 pe-4 select-none`}>
 					Lines: {lineCount} 
 				</div>
 				
@@ -358,7 +358,7 @@ print(greet("Markdown"))
 							className={`h-full ${themeMode==='dark' ? 'bg-dark text-white' :'bg-white text-slate-800'} p-4 w-full overflow-auto flex flex-col`}
 							dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
 						/>
-						<div className="text-right text-sm bg-slate-100 text-gray-500 p-1 select-none">
+						<div className={`text-right bg-slate-100 text-sm text-gray-500 p-1 pe-4 select-none`}>
 						Reading Time: {getReadingTime(wordsCount || '')} <span className="px-1">•</span> Words: {wordsCount} <span className="px-1">•</span> Characters : {charactersCount}
 						</div>
 

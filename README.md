@@ -12,6 +12,7 @@ A simple and powerful Markdown Editor built using **ReactJS**. This editor allow
 - Easy-to-use layout with split-screen editing and preview
 - Dark/Light mode toggle 
 - Fun facts
+- Full screen mode
 
 ## 🛠️ Tech Stack
 

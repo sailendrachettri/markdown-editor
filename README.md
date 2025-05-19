@@ -1,12 +1,35 @@
-# React + Vite
+# 📝 Markdown Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and powerful Markdown Editor built using **ReactJS**. This editor allows users to write and preview markdown content in real-time. Ideal for note-taking, documentation, or any markdown-based content creation.
 
-Currently, two official plugins are available:
+## 🔗 Link
+[https://sailendraz-markdown-editor.netlify.app](https://sailendraz-markdown-editor.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- Live preview of Markdown as you type
+- Responsive and user-friendly interface
+- Easy-to-use layout with split-screen editing and preview
+- Dark/Light mode toggle 
+- Fun facts
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+- [ReactJS](https://reactjs.org/)
+- [Marked](https://github.com/markedjs/marked) - for Markdown parsing
+- [DOMPurify](https://github.com/cure53/DOMPurify) - for sanitizing HTML
+<!-- - [PrismJS](https://prismjs.com/) (optional) - for syntax highlighting -->
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/sailendrachettri/markdown-editor.git
+
+cd markdown-editor
+
+yarn install
+
+yarn start
+```
+
+Developed by Sailendraz

@@ -3,6 +3,9 @@ import { marked } from "marked";
 import DOMPurify from 'dompurify';
 import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 import getReadingTime from "../../utility/functions/GetReadingTime";
+import { IoCopyOutline } from "react-icons/io5";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
+
 
 const options = {
    
@@ -35,6 +38,7 @@ const getTargetElement = () => document.getElementById('content-id');
 const Editor = ({themeMode}) => {
 	const [wordsCount, setWordsCount] = useState(0);
   	const [charactersCount, setCharactersCount] = useState(0);  
+	const [copyToClipboard, setCopyToClipboard] = useState(false);
  	const [markdown, setMarkdown] = useState(`# 🌟 Online Markdown Editor
 
 Welcome to **_your very own_** Markdown editor. This sample document will help you test all major Markdown features. Start writing your own Markdown below, and see the preview on the right.
@@ -231,6 +235,45 @@ print(greet("Markdown"))
 	}
 	};
 
+	function fallbackCopyToClipboard(text) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+
+  // Avoid scrolling to bottom
+  textarea.style.top = "0";
+  textarea.style.left = "0";
+  textarea.style.position = "fixed";
+
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    document.execCommand("copy");
+    console.log("Fallback: Text copied to clipboard");
+  } catch (err) {
+    console.error("Fallback: Unable to copy", err);
+  }
+
+  document.body.removeChild(textarea);
+}
+
+
+function handleCopyText() {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(markdown)
+      .then(() => console.log('Copied with Clipboard API'))
+      .catch(err => console.error('Clipboard API failed', err));
+	
+	  setCopyToClipboard(true);
+  } else {
+    fallbackCopyToClipboard(markdown);
+  }
+
+  setTimeout(() => {
+	setCopyToClipboard(false);
+  }, 3000);
+}
 
 
     return (
@@ -277,9 +320,16 @@ print(greet("Markdown"))
 
             {/* Preview Output */}
            {!fullScreenMode ?
-				<div className="overflow-auto">
+				<div className="overflow-auto group">
 					<div className={`flex justify-between ${themeMode==='dark' ? 'bg-dark text-light' : 'bg-slate-100 text-slate-600 border-slate-400'}  px-5 py-3 border-t border-r    `}>
 						<h2 className=" uppercase tracking-[1px]">Preview</h2>
+						<div 
+							onClick={()=> {handleCopyText()}}
+							className=" group-hover:block hidden">
+							{copyToClipboard ? 
+							<span className="text-sm flex gap-x-1 items-center justify-center cursor-pointer min-w-20"><IoCheckmarkDoneOutline size={18} />  Copied  </span> :
+							<span className="text-sm flex gap-x-1 items-center justify-center cursor-pointer min-w-20"><IoCopyOutline /> Copy </span>}
+						</div>
 						<div className=""
 							onClick={()=> {handleGeneratePDF()}}
 						>
